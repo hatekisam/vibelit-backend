@@ -20,12 +20,12 @@ export class UsersController {
     return this.usersService.createUser();
   }
 
-  @Patch('id')
+  @Patch(':id')
   updateUser(@Param('id') userId: string) {
     return this.usersService.updateUser(userId);
   }
 
-  @Delete('id')
+  @Delete(':id')
   deleteUser(@Param('id') userId: string) {
     return this.usersService.deleteUser(userId);
   }
