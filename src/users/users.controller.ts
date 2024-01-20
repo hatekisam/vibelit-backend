@@ -1,5 +1,14 @@
-import { Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
+import { Prisma } from '@prisma/client';
 
 @Controller('users')
 export class UsersController {
@@ -11,8 +20,15 @@ export class UsersController {
   }
 
   @Get()
-  getUsers() {
-    return this.usersService.getUsers();
+  getUsers(
+    @Query('skip') skip?: number,
+    @Query('skip') take?: number,
+    @Query('where') where?: Prisma.UserWhereInput,
+    @Query('cursor') cursor?: Prisma.UserWhereUniqueInput,
+    @Query('orderBy') orderBy?: Prisma.UserOrderByWithRelationInput,
+  ) {
+    const params = { skip, take, where, cursor, orderBy };
+    return this.usersService.getUsers(params);
   }
 
   @Post()
